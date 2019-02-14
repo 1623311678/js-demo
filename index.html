@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        .divAll {
+            width: 800px;
+            font-family: '黑体';
+            margin: 50px auto;
+        }
+
+        #titles {
+            font-weight: bold;
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid #CCC;
+        }
+
+        #contents {
+            margin-top: 20px;
+            border: 1px solid #CCC;
+        }
+
+        #form-itemGroup {
+            padding: 10px;
+        }
+
+        #form-itemGroup label {
+            display: inline-block;
+            width: 150px;
+            height: 32px;
+            line-height: 32px;
+            color: #666;
+            text-align: right;
+        }
+
+        #form-itemGroup .userName {
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #CCC;
+            width: 500px;
+        }
+
+        #form-itemGroup .default {
+            width: 200px;
+            height: 32px;
+            line-height: 32px;
+            color: #999;
+        }
+
+        #form-itemGroup .error {
+            height: 32px;
+            line-height: 32px;
+            color: #F00;
+        }
+
+        #form-itemGroup .success {
+            height: 32px;
+            line-height: 32px;
+            color: #096;
+        }
+
+        #form-itemGroup .select-true,
+        #form-itemGroup .select-false {
+            height: 32px;
+            line-height: 32px;
+            color: #666;
+
+        }
+
+        .divBtn {
+            margin-top: 20px;
+            height: 32px;
+            margin-left: 100px;
+            border-radius: 5px;
+            line-height: 32px;
+            background: rgb(0, 195, 255);
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+        }
+
+        .divBtn1 {
+            margin-top: 20px;
+            height: 30px;
+            border-radius: 5px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            font-weight: bold;
+            border: 1px solid#ccc;
+        }
+    </style>
+    <script type="text/javascript">
+        var dataValue = [];
+
+        function checkForm() {//立即创建按钮函数
+            checkCorporatAccount();
+            checkInfoEmpty();
+            console.log('denglu', 'denglu')
+            getValueSuccess();
+        }
+        function getValueCancle() {//取消清空数据函数
+            var username0 = document.getElementById('userName');
+            var username1 = document.getElementById('userName1');
+            var username2 = document.getElementById('userName2');
+            var username3 = document.getElementById('userName3');
+            var username4 = document.getElementById('userName4');
+            var username5 = document.getElementById('userName5');
+            var username6 = document.getElementById('userName6');
+            username0.value = '';
+            username1.value = '';
+            username2.value = '';
+            username3.value = '';
+            username4.value = '';
+            username5.value = '';
+            username6.value = '';
+        }
+        function getValueSuccess() {//获取数据并在控制台打印
+            var username0 = document.getElementById('userName');
+            var username1 = document.getElementById('userName1');
+            var username2 = document.getElementById('userName2');
+            var username3 = document.getElementById('userName3');
+            var username4 = document.getElementById('userName4');
+            var username5 = document.getElementById('userName5');
+            var username6 = document.getElementById('userName6');
+            var pageData = {
+                'name': username0.value,
+                'manager': username1.value,
+                'concatPeople': username2.value,
+                'isPreResearch': username3.value == 'true' ? (username3.value) : (username6.value),
+                'enterpriseIds': username4.value,
+                'desc': username5.value
+            }
+            console.log(pageData);
+        }
+
+        function checkInfoEmpty() {//用户名校验函数
+            var username = document.getElementById('userName1');
+            var errname = document.getElementById('nameErr1');
+            if (username.value.length == 0) {
+                errname.innerHTML = "用户名不能为空"
+                errname.className = "error"
+                return false;
+            } else {
+                errname.innerHTML = ""
+                errname.className = "success";
+                return true;
+            }
+        }
+
+        function checkCorporatAccount() {
+            var username = document.getElementById('userName4');
+            var errname = document.getElementById('nameErr4');
+            let reg = /\d+(,\d+)*/;
+            //   console.log('value', username.value)
+            if (!(reg.test(username.value)) || (username.value.length == 0)) {
+                errname.innerHTML = "企业账号要以逗号分开,并且是数字,并且不能为空"
+                errname.className = "error"
+                return false;
+            } else {
+                errname.innerHTML = ""
+                errname.className = "success";
+                return true;
+            }
+        }
+
+        function checkSelectTrue(radio) {//否定选择按钮
+            var username = document.getElementById('userName3');
+            console.log(username.value);
+            if (radio.tag == 1) {
+                radio.checked = false;
+                radio.tag = 0;
+                username.value = false;
+            } else {
+                radio.checked = true;
+                radio.tag = 1;
+                username.value = true;
+            }
+        }
+
+        function checkSelectFalse(radio) {//确认选择按钮
+            var username = document.getElementById('userName6');
+            console.log(username.value);
+            if (radio.tag == 1) {
+                radio.checked = false;
+                radio.tag = 0;
+            } else {
+                radio.checked = true;
+                radio.tag = 1;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="divAll">
+        <div id="contents">
+            <form action="#" onSubmit="return checkForm()">
+                <div id="form-itemGroup">
+                    <label for="userName">调查名称：</label>
+                    <input type="text" id="userName" class="userName" placeholder="调查名称格式：创建人姓名-调查名称">
+                    <span class="default" id="nameErr"></span>
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userName">调查负责人：</label>
+                    <input type="text" id="userName1" class="userName" placeholder="负责人名称不能为空">
+                    <span class="default" id="nameErr1"></span>
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userName">调查联系人：</label>
+                    <input type="text" id="userName2" class="userName" placeholder="调查联系人可以为空">
+                    <span class="default" id="nameErr2"></span>
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userName">是否预调研：</label>
+                    <span class="select-true">是</span>
+                    <input type="radio" id="userName3" value=true onclick="checkSelectTrue(this)">
+                    <span class="select-false">否</span>
+                    <input type="radio" id="userName6" value=false onclick="checkSelectFalse(this)">
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userName">被调查企业账号：</label>
+                    <input type="text" id="userName4" class="userName" placeholder="企业账号之间以英文逗号隔开，如123，456，不能为空">
+                    <span class="default" id="nameErr4"></span>
+
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userName">调查摘要：</label>
+                    <input type="text" id="userName5" class="userName" placeholder="可以为空">
+                    <span class="default" id="nameErr5"></span>
+                </div>
+                <button type="submit" class="divBtn">立即创建</button>
+                <button class="divBtn1" onclick="getValueCancle()">取消</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</body>
+
+</html>
